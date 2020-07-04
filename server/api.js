@@ -19,6 +19,8 @@ router.post('/posts', function(req, res) {
     title: req.body.title,
     url: req.body.url
   })
+  console.log(req.body.title);
+  console.log(req.body.url);
   post.save(function(err, rec) {
     if(err) {
       return res.status(400).send("error while creting a post")

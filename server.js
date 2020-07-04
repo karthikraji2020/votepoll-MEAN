@@ -1,9 +1,9 @@
 require('dotenv').config()
 const express = require('express');
+const app = express();
 const path = require('path');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
-const app = express();
 const api = require('./server/api');
 const Post = require('./server/models/post');
 const cors = require('cors');
@@ -15,20 +15,22 @@ const mongooseSets={
   useUnifiedTopology: true,
   useFindAndModify: false
 };
+var collection;
 
 
 mongoose.Promise = global.Promise;
 
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/votingpoll";
+// const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/votingpoll";
+const uri = process.env.MONGODB_URI ;
 const dbName = process.env.MONGODB_DBName || "testdb";
 const collectionName = process.env.MONGODB_CollectionName || "testcollection";
-
   const client = new MongoClient(uri, { useNewUrlParser: true ,useUnifiedTopology: true,});
+  // const client = new MongoClient(uri, mongooseSets);
 client.connect(err => {
   console.log('db connected');
-  const collection = client.db(dbName).collection(collectionName);
+   collection = client.db(dbName).collection(collectionName);
   client.close();
 });
 
@@ -66,6 +68,9 @@ app.post('/testapi/posts', function(req, res) {
     title: req.body.title,
     url: req.body.url
   })
+  
+  console.log(req.body.title);
+  console.log(req.body.url);
   post.save(function(err, rec) {
     if(err) {
       return res.status(400).send("error while creting a post")
@@ -73,6 +78,22 @@ app.post('/testapi/posts', function(req, res) {
     console.log(rec);
     res.send(rec);
   })
+});
+
+app.post("/person", (request, response) => {
+
+  console.log(request.body.title);
+  const post = new Post({
+    _id: mongoose.Types.ObjectId(),
+    title: request.body.title,
+    url: request.body.url
+  })
+  collection.insertOne(post, (error, result) => {
+      if(error) {
+          return response.status(500).send(error);
+      }
+      response.send(result.result);
+  });
 });
 
 app.get('/*', (req, res) =>
