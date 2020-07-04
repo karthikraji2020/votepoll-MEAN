@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const app = express();
 const api = require('./server/api');
+const Post = require('./server/models/post');
 const cors = require('cors');
 const PORT =process.env.PORT || 5000;
 const mongooseSets={
@@ -15,45 +16,34 @@ const mongooseSets={
   useFindAndModify: false
 };
 
-app.use(express.json());
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
 
-// parse requests of content-type - application/json
-app.use(bodyParser.json())
-
-// mongoose.Promise = global.Promise;
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
-
-// const MongoClient = require('mongodb').MongoClient;
-const uri = process.env.MONGODB_URI || "mongodb+srv://admin:password@123@cluster0-zt42g.mongodb.net/testdb?retryWrites=true&w=majority";
-const dbName = process.env.MONGODB_DBName || "testdb";
-const collectionName = process.env.MONGODB_CollectionName || "testcollection";
-// const client = new MongoClient(uri, mongooseSets);
-
-// client.connect(err => {
-//     console.log('db connected');
-//   const collection = client.db(dbName).collection(collectionName);
-//   console.log(uri);
-//   console.log(err);
-//   client.close();
-
-// });
+mongoose.Promise = global.Promise;
 
 
 const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://admin:password@123@cluster0-zt42g.mongodb.net/testdb?retryWrites=true&w=majority";
-  
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/votingpoll";
+const dbName = process.env.MONGODB_DBName || "testdb";
+const collectionName = process.env.MONGODB_CollectionName || "testcollection";
+
   const client = new MongoClient(uri, { useNewUrlParser: true ,useUnifiedTopology: true,});
 client.connect(err => {
-  const collection = client.db("testdb").collection("testcollection");
-  // perform actions on the collection object
+  console.log('db connected');
+  const collection = client.db(dbName).collection(collectionName);
   client.close();
 });
 
 
 //middlewares 
 app.use(cors());
+
+app.use(express.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json())
+
 app.use('/api', api);
 
 app.use(express.static('./dist/votingpoll'));
@@ -65,11 +55,24 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   if (req.method === "OPTIONS") {
-    console.log(process.env.MONGODB_URL||'23434');
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
   }
   next();
+});
+app.post('/testapi/posts', function(req, res) {
+  const post = new Post({
+    _id: mongoose.Types.ObjectId(),
+    title: req.body.title,
+    url: req.body.url
+  })
+  post.save(function(err, rec) {
+    if(err) {
+      return res.status(400).send("error while creting a post")
+    }
+    console.log(rec);
+    res.send(rec);
+  })
 });
 
 app.get('/*', (req, res) =>

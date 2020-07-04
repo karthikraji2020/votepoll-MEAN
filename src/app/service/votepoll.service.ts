@@ -4,14 +4,17 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
   providedIn: 'root'
 })
 export class VotePollService {
-
+  const _header = new HttpHeaders().set("Content-Type", "application/json");
   constructor(private http: HttpClient) { }
 
   getAllPosts() {
     return this.http.get('/api/posts');
   }
+  // createPost(data) {
+  //   return this.http.post('/api/posts',  data);
+  // }
   createPost(data) {
-    return this.http.post('/api/posts',  data);
+    return this.http.post('https://votepollsystem.herokuapp.com/testapi/posts',  data);
   }
  
   upVote(id, votes) {

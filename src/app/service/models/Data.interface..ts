@@ -1,5 +1,5 @@
 export interface Data {
-  PlayerName :string;  
-  Run:string;  
+  title :string;  
+  votes:string;  
   }
   
