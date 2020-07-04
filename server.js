@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const path = require('path');
+const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const app = express();
 const api = require('./server/api');
@@ -15,13 +16,19 @@ const mongooseSets={
 };
 
 app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json())
+
 // mongoose.Promise = global.Promise;
 // mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 // const MongoClient = require('mongodb').MongoClient;
-// const uri = process.env.MONGODB_URL;
-const dbName = process.env.MONGODB_DBName;
-const collectionName = process.env.MONGODB_CollectionName;
+const uri = process.env.MONGODB_URI || "mongodb+srv://admin:password@123@cluster0-zt42g.mongodb.net/testdb?retryWrites=true&w=majority";
+const dbName = process.env.MONGODB_DBName || "testdb";
+const collectionName = process.env.MONGODB_CollectionName || "testcollection";
 // const client = new MongoClient(uri, mongooseSets);
 
 // client.connect(err => {
@@ -35,7 +42,7 @@ const collectionName = process.env.MONGODB_CollectionName;
 
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://admin:password@123@cluster0-zt42g.mongodb.net/testdb?retryWrites=true&w=majority";
+// const uri = "mongodb+srv://admin:password@123@cluster0-zt42g.mongodb.net/testdb?retryWrites=true&w=majority";
   
   const client = new MongoClient(uri, { useNewUrlParser: true ,useUnifiedTopology: true,});
 client.connect(err => {
