@@ -15,8 +15,8 @@ export class VotepollComponent implements OnInit {
     title: '',
     url: ''
   };
-  
-  constructor(private postsService: VotePollService) {
+
+  constructor(private votePollService: VotePollService) {
   }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class VotepollComponent implements OnInit {
   }
   getAllPosts()
   {
-    this.postsService.getAllPosts().subscribe((data: Post[]) => {
+    this.votePollService.getAllPosts().subscribe((data: Post[]) => {
       this.postList = data;
     });
   }
@@ -33,7 +33,7 @@ export class VotepollComponent implements OnInit {
       title: this.post.title,
       url: this.post.url,
     };
-    this.postsService.createPost(newPost).subscribe((data: Post) => {
+    this.votePollService.createPost(newPost).subscribe((data: Post) => {
       this.postList.push(data);
       this.sortPosts();
     }, (err) => console.log(err));
@@ -42,22 +42,21 @@ export class VotepollComponent implements OnInit {
   upVote(post) {
     const thePost = this.postList.find(itm => post._id === itm._id);
     thePost.votes = thePost.votes + 1;
-    this.postsService.upVote(post._id, post.votes).subscribe((data: Post) => {
-    // this.postsService.upVote(post).subscribe((data: Post) => {
-      // console.log(data);
+    this.votePollService.upVote(post._id, post.votes).subscribe((data: Post) => {
+      console.log(data);
     });
     this.sortPosts();
   }
   downVote(post) {
     const thePost = this.postList.find(itm => post._id === itm._id);
     thePost.votes = thePost.votes - 1;
-      this.postsService.upVote(post._id, post.votes).subscribe((data: Post) => {
+      this.votePollService.upVote(post._id, post.votes).subscribe((data: Post) => {
       // console.log(data);
     });
     this.sortPosts();
   }
   deletePost(post) {
-    this.postsService.deletePost(post._id).subscribe((data: Post) => {
+    this.votePollService.deletePost(post._id).subscribe((data: Post) => {
     const index = this.postList.indexOf(post);
     this.postList.splice(index, 1);
   });

@@ -23,6 +23,7 @@ router.post('/posts', function(req, res) {
     if(err) {
       return res.status(400).send("error while creting a post")
     }
+    console.log(rec);
     res.send(rec);
   })
 });
