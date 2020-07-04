@@ -21,8 +21,8 @@ var collection;
 mongoose.Promise = global.Promise;
 
 
-const MongoClient = require('mongodb').MongoClient;
-// const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/votingpoll";
+/*const MongoClient = require('mongodb').MongoClient;
+ const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/votingpoll";
 const uri = process.env.MONGODB_URI ;
 const dbName = process.env.MONGODB_DBName || "testdb";
 const collectionName = process.env.MONGODB_CollectionName || "testcollection";
@@ -32,9 +32,15 @@ client.connect(err => {
   console.log('db connected');
    collection = client.db(dbName).collection(collectionName);
   client.close();
-});
+//});*/
 
-
+  // Connecting to the database
+  mongoose.connect(process.env.MONGODB_URI, mongooseSets).then(() => {
+      console.log("Successfully connected to the database");    
+  }).catch(err => {
+      console.log('Could not connect to the database. Exiting now...', err);
+      process.exit();
+  });
 //middlewares 
 app.use(cors());
 
