@@ -5,20 +5,23 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 })
 export class VotePollService {
 
+  constructor(private http: HttpClient) { }
 
-  dataURL:string = './assets/data/questions.json';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
-  constructor(private httpClient: HttpClient){}
-
-  ngOnInit(){
-   
+  getAllPosts() {
+    return this.http.get('/api/posts');
   }
-
-  getTopics() {
-    return this.httpClient.get(`${this.dataURL}`, {headers: this.headers});
+  createPost(data) {
+    return this.http.post('/api/posts',  data);
   }
-
-  getQuestions() {
-    return this.httpClient.get(`${this.dataURL}`, {headers: this.headers});
+ 
+  upVote(id, votes) {
+    return this.http.put(`/api/posts/${id}/upvote`, {votes: votes});
+  }
+ 
+  downVote(id, votes) {
+    return this.http.put(`/api/posts/${id}/downvote`, {votes: votes});
+  }
+  deletePost(id) {
+    return this.http.delete(`/api/posts/${id}`);
   }
 }
