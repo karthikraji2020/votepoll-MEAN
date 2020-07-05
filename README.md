@@ -1,5 +1,14 @@
 # Votingpoll
 
+[hostedLink]: (https://votepollsystem.herokuapp.com/).
+
+## TechStack
+    Mean Stack 
+    1)mongodb  - Database
+    2)Express 
+    3)Angular - Frontend
+    4)Nodejs
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
 ## Development server
