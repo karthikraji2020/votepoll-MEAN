@@ -11,7 +11,7 @@
 #### DEMO
 ## :film_projector: DEMO
 
-<img src="./src/assets/images/uigenkit.gif" alt="uigeneratorkit">
+<img src="./src/assets/images/votePoll.gif" alt="votePoll">
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
