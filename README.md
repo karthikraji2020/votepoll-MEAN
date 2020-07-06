@@ -8,6 +8,8 @@
     2)Express 
     3)Angular - Frontend
     4)Nodejs
+#### DEMO
+![Demo](https://raw.githubusercontent.com/karthikraji2020/votepoll-MEAN/master/assets/images/votePoll.gif)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
