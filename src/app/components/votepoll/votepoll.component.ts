@@ -71,7 +71,10 @@ export class VotepollComponent implements OnInit {
     this.votePollService.deletePost(post._id).subscribe((data: VotePoll) => {
     const index = this.votePollList.indexOf(post);
     this.votePollList.splice(index, 1);
-    this.title.splice(index, 1);
+    const i = this.title.indexOf(post.title);
+    const I = this.votes.indexOf(post.votes);
+    this.title.splice(i, 1);
+    this.votes.splice(I, 1);
   });
   this.sortVotePollList();
 }
@@ -84,11 +87,8 @@ export class VotepollComponent implements OnInit {
 
   // bar chart
   renderChart() {
-    debugger;
     this.title = [...new Set(this.title)];
-    // this.title = [...new Set(this.votePollList.map((x)=>{return x._id}))];
-    // this.title = this.votePollList.filter((item)=>{item.id===title})
-    // this.votes = [...new Set(this.votes)];
+    // var ctx = document.getElementById('canvas').getContext('2d');
     this.barchart = new Chart('canvas', {  
       type: 'bar',  
       data: {  
@@ -96,19 +96,17 @@ export class VotepollComponent implements OnInit {
         datasets: [  
           {  
             data:this.votes,  
-            borderColor: '#3cba9f',  
             backgroundColor: [  
-              "#3cb371",  
-              "#0000FF",  
-              "#9966FF",  
-              "#4C4CFF",  
-              "#00FFFF",  
-              "#f990a7",  
-              "#aad2ed",  
-              "#FF00FF",  
-              "Blue",  
-              "Red",  
-              "Blue"  
+              'rgba(153, 102, 255, 0.7)',
+              'rgba(255, 99, 132, 0.7)',
+              'rgba(54, 162, 235, 0.7)',
+              'rgba(255, 206, 86, 0.7)',
+              'rgba(75, 192, 192, 0.7)',
+              'rgba(153, 02, 255, 0.7)',
+              'rgba(13, 102, 255, 0.7)',
+              'rgba(131, 102, 25, 0.7)',
+              'rgba(313, 102, 255, 0.7)',
+              'rgba(255, 159, 164, 0.7)'
             ],  
             fill: true  
           }  
@@ -122,8 +120,9 @@ export class VotepollComponent implements OnInit {
                     text: "Vote Poll",
         },
         legend: {  
-          display: true  
-        },  
+          display: false,  
+          position: 'bottom',
+        }, 
         scales: {  
           xAxes: [{  
             display: true  ,

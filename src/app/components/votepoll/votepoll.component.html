@@ -1,6 +1,7 @@
 
 <div class="row">
   <div class="col-md-6 col-lg-6 col-sm-12 ">
+    <h3>  VotePoll Form</h3>
     <div class="top-section">
       <div class="input-area">
         <form (submit)="addPost()" #postForm="ngForm">
@@ -13,9 +14,8 @@
   </div>
   <div class="col-md-6 col-lg-6 col-sm-12 ">
     <h3> Data visualization</h3>
-<!--     <div class="chart-container" style="height: 30%vh;width:100%;"> -->
-    <div class="chart-container" width="400" height="400">    
-      <canvas id="canvas"></canvas>    
+  <div class="chart-container" >    
+    <canvas id="canvas" width="400" height="300"></canvas>    
     </div>
   </div>
 </div>

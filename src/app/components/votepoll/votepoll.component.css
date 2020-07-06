@@ -71,6 +71,7 @@
     align-self: center;
   }
   .post-item .content {
+    word-wrap: break-word;
     flex-grow: 2;
   }
   .post-item div {

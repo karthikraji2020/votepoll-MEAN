@@ -1,11 +1,4 @@
-a {
-    font-weight: 500;
-    color: #fff;
-  }
-  a:hover {
-    text-decoration: none;
-    color: #fff;
-  }
+
   .container{
     min-height: 70vh;
 }
