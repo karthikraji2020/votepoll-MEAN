@@ -115,14 +115,33 @@ export class VotepollComponent implements OnInit {
         ]  
       },  
       options: {  
+        maintainAspectRatio: false,
+                responsive: true,
+                title: {
+                    display: true,
+                    text: "Vote Poll",
+        },
         legend: {  
-          display: false  
+          display: true  
         },  
         scales: {  
           xAxes: [{  
-            display: true  
+            display: true  ,
+             ticks: {
+                  fontColor: "black",
+                  fontSize: 14,
+                  stepSize: 1,
+                  beginAtZero: true
+              }
           }],  
-          yAxes: [{  
+          yAxes: [
+        {               
+       ticks: {
+              fontColor: "black",
+              fontSize: 14,
+              beginAtZero: true,
+              min: 0
+              },
             display: true  
           }],  
         }  
