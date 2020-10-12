@@ -31,6 +31,7 @@
     "jquery": "^3.5.1",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.21",
+     "nodemailer": "^6.4.13",
     "path": "^0.12.7",
     "popper": "^1.0.1",
     "rxjs": "~6.4.0",
