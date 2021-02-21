@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // BaseURL:'http://localhost:5000/api'
+  BaseURL:'https://votepollsystem.herokuapp.com/api'
 };
 
 /*
